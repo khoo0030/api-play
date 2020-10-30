@@ -1,8 +1,9 @@
 const express = require('express')
+const aesService = require('./AesService')
 const app = express()
 const port = 7000
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   console.log('headers------');
   console.log(req.headers);
   console.log('query params------');
@@ -36,8 +37,10 @@ app.get('/', (req, res) => {
     message: 'error lah'
   }
 
+  const encrypted = await aesService.encrypt(JSON.stringify(data))
+
   // res.status(404).json({errors});
-  res.json({data})
+  await res.json({data: encrypted})
 })
 
 app.listen(port, () => {
