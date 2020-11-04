@@ -90,7 +90,6 @@ function constant_time_comparison(a, b) {
 }
 
 function verify(data, mac, mac_key) {
-  throw new Error('fake error')
   const data_mac = sign(data, mac_key) // Buffer
 
   const ver = constant_time_comparison(mac.toString('hex'), data_mac.toString('hex'))
